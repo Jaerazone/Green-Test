@@ -1,0 +1,233 @@
+● BOM (브라우져 객체 모델)
+1. 가장 상위의 BOM 객체는 무엇인가요?
+=> window
+
+추가) => Document는 DOM객체의 최상위 객체이며 
+     HTML문서의 엘리먼트를 변경하기 위해서
+     제공되는 다양한 메소드가 존재한다.​ 
+
+
+
+2. window.prompt() 함수를 사용하기 위해서는 window객체는 반드시 적어야하나요?
+=> 생략해도된다.
+=> window는 최상위 객체이기 때문에
+=> window는 최상위 객체입니다
+=> prompt나 confirm같은 내장 함수들은 
+     window 객체의 메소드(객체 내에서 정의된 함수)입니다.
+=> 보통 객체 내 함수에 접근할 때, 
+=> obj.function 과 같은 문법을 사용하는데, 
+=> 최상위 객체인 window 내에 정의된 함수이므로
+=> window.prompt나 window.confirm으로 접근해야 하지만,
+=> prompt, confirm처럼 생략해도 똑같이 작동합니다.
+=> https://youtu.be/sj2qU0f4rgg
+=> 위 링크에 자세히 설명되어있으니 참고
+
+
+
+3, 타이머 함수(setTimeout)를 사용하면 그 아래에 있는 코드는 바로 실행되나요, 아니면 타
+이머 함수가 실행된 후에 실행되나요?
+그 아래에 있는 코드가 바로 실행된다면 타이머 함수는 어디에 있다가 실행이 되나요?
+    alert('A');
+    setTimeout(function() {
+          alert('B');
+    },0);
+    alert('C');
+=> 답은 A,C,B로 이벤트가 뜬다
+=> 이유는 자바스크립트 엔진이 먼저 코드를 실행 후
+=> 비동기 이벤트인 Web API를 실행하기때문에
+=> A,C,B라는 결과가 나온다
+=> 함수는 백그라운드에 있다가 시간이 되면 호출됨
+
+
+● DOM (문서 객체 모델)
+1. DOM은 어디에서 가져오나요? (어디에서 보여지나요)
+ ① html ② js ③ css 
+=> ①HTML을 구현시킨다 (HTML 요소들의 구조화된 표현)
+
+=> DOM은 Document Object Model의 약자로,
+=> HTML(Document)에 접근해서 
+=> Object처럼 HTML을 조작할수 있는 Model이라는 것
+=> 즉, 자바스크립트로 HTML에 접근하여
+=> HTML 조작이 가능해지는 것입니다
+=> 여기서 중요한 것이 단순한 html 문서 수정의 개념이 아닌
+=> html과 연결되어 조작을 하는 개념입니다
+=> DOM은 자바스크립트가 아닙니다
+=> 자바스크립트를 활용해 DOM구조에 접근하는것입니다
+=>DOM은 원본 HTML 문서의 객체 기반 표현 방식입니다. 
+=> 둘은 서로 비슷하지만, DOM이 갖고 있는 근본적인 차이는
+=> 단순 텍스트로 구성된 HTML 문서의 내용과 
+=> 구조가 객체 모델로 변환되어 
+=> 다양한 프로그램에서 사용될 수 있다는 점
+
+
+
+2. document 객체는 BOM의 어떤 객체의 하위 객체 인가요?
+=> 브라우저 객체 모델(BOM)의 
+=> 최상위 객체는 window라는 객체입니다
+
+=> DOM은 이 window 객체의 하위 객체이기도 합니다
+=> 브라우저와 관련된 객체들의 집합
+=> 브라우저 객체 모델 : BOM(Browser Object Model)
+=> 이 브라우저 객체 모델(BOM)을 이용해서 
+=> Browser와 관련된 기능들을 구성합니다
+=> DOM은 이 BOM  중의 하나입니다. 
+=> document.~~적었던거 -> window.~~라고적어도됨
+
+
+3. document의 하위 요소들이 어떤 구조로 이루어져 있는지 트리구조로 그려보세요.
+ ( html, head, title, body, h1, p )
+=> https://m.blog.naver.com/magnking/220972680805
+
+
+
+● DOM을 찾기 위한 document.querySelector 
+1. id="id_name" 찾기 위해서 사용하는 기호는?
+=> <document.querySelector("#id_name");
+
+
+2. class="class_name" 찾기 위해서 사용하는 기호는?
+=> document.querySelector("class_name");
+
+
+● DOM과 Node의 형제, 자식, 부모 관계 
+1. <li><a href="#">메뉴1</a></li> 요소의 parentElement는 무엇인가요?
+=> <ul>
+
+
+
+2. <li><a href="#">메뉴1</a></li> 요소의 nextElementSibling 는 무엇인가요?
+=> <li><a href="#">메뉴2</a></li> 형제
+=>nextElementSibling 은 Element(요소)를 가져온다
+
+
+
+2-1. <li><a href="#">메뉴1</a></li> 요소의 nextSibling 는 무엇인가요?
+=> 줄바꿈 (\n )
+=> nextSibling은 공백이든, 텍스트든 가리지 않고 
+=> 다음에 있는 것을 가져온다
+
+
+
+3. <li><a href="#">메뉴1</a></li> 요소는 childNodes로 어떤 요소노드와 텍스트노드를 가지고 있나요?(없을시 없음으로)
+=> childNodes로는 요소노드만 가지고있음
+=> <a href="#">메뉴1</a>
+=> 콘솔창 )document.querySelector("#menu ul li").childNodes
+
+3-1. <a href="#">메뉴1</a> 요소는 childNodes로 어떤 요소노드와 텍스트노드를 가지고 있나요?(없을시 없음으로)
+=> 없음
+
+
+
+● Node 제어 및 관리
+1. document.createElement( “p” )을 통하여 무엇을 만들 수 있나요?
+=> <p></p> p태그 생성가능
+
+
+2. document.createTextNode( “반갑습니다” )을 통하여 무엇을 만들 수 있나요?
+=> 반갑습니다 텍스트노드 생성
+
+
+3. document.createAttribute( “class” )을 통하여 무엇을 만들 수 있나요?
+=> class속성노드 생성
+콘솔) 
+document.createAttribute("class")
+let atrrNode = document.createAttribute("class")
+atrrNode.value = "class_name"
+
+3-1. document.createAttribute( “class” )을 통해 만들어진 속성의 값은 어떻게 넣을 수 있나요?
+* 속성노드는 .setAttributeNode( 속성노드 )를 이용해서 추가할 수 있습니다.
+=> .setAttributeNode( class )
+
+
+4. .setAttribute( “style” , “color : red”)을 통해 무엇을 만들 수 있나요
+=> style 속성값의  컬러를 빨간색으로 만든다.
+document.createElement("p")
+let pElement = document.createElement("p")
+document.createTextNode("반갑습니다")
+pElement.setAttribute("style", "color: red;")
+
+
+● 이벤트
+1. 자바스크립트에서 말하는 이벤트란 무엇인가요?
+html과 js 와의 관계에서 살펴봅시다.
+=> 이벤트란 
+    : html 의 Dom에게 어떠한 상황(Click,mouseOver)와 같은일 
+=> 역할 : 이벤트가 일어났을 때 JS에게 알려준다
+
+=> 이벤트란? 이벤트 핸들러를 통하여 이벤트가 발생시 
+=> 원하는 함수를 연결하여 실행 시킬 수 있다
+=> 어떤 이벤트가 발생했을 때 이를 처리하는 함수를
+=> 이벤트 리스너(event listener) or
+=> 이벤트 핸들러(event handler) 라고 한다
+※이벤트 리스터(핸들러) 등록에는 3가지 방법이 있다
+   각 방법마다 장단점, 유의사항이 있으니 참고
+1) 인라인 방식(lnline)
+- 이벤트를 HTML 요소의 속성으로 직접 지정하는 방식
+- HTML코드에 자바스크립트를 추가함으로써 
+  결국 HTML코드와 스크립트가 섞여 사용되기 때문에
+  관점에 따라서는 유지보수에 안좋을 것
+2) 프로퍼티 방식(Property)
+- 자바스크립트 코드에서 프로퍼티로 등록하여 사용하는 방식
+- HTML 코드와 자바스크립트가 섞여 사용되지 않는다
+- 하나의 이벤트 핸들러 프로퍼티에는 하나의 핸들러만
+  바인딩 가능하다
+3) addEventListener()방식, attachEvent()방식
+- 프로퍼티 방식은 1개의 이벤트핸들러만 바인딩 가능했지만
+  하나 이상의 이벤트 핸들러를 바인딩 할 수 있다
+- 문법 : 
+객체.addEventListener('이벤트타입', 함수명[,이벤트전파방식]);
+*이벤트타입(바인딩될 이벤트의 문자열)
+*함수명(이벤트리스너)
+*이벤트전파방식(캡쳐링 사용여부)
+- 캡처링과 버블링을 지원한다(따로 찾아보기)
+ex)
+<script> 
+  let testBtn2 = document.querySelector('#testBtn2');
+  function testFunc(){ 
+      alert('Hello world1'); 
+  } 
+  testBtn2.addEventListener('click', testFunc); 
+
+  testBtn2.addEventListener('click', function () {
+      alert('Hello world2'); 
+  }); 
+ } 
+</script>
+4) removeEventListener()
+- 등록된 이벤트 리스너를 삭제시 사용 가능
+ex) testBtn2.removeEventListener('click', testFunc);
+
+출처: https://goddaehee.tistory.com/269 [갓대희의 작은공간]
+
+
+
+2. DOM에 “클릭” 이벤트 발생시킬 수 있는 두가지 방법은 무엇인가요?
+1) 요소의 속성값으로 추가하는 방법 :
+=> onclick="함수()"
+<p id="" onclick="함수()">눌러주세요</p>
+
+2) 자바스크립트에서 추가하는 방법 : 
+=> .addEventListener("click", 함수);
+<script>
+const p = docment.querySelector("#click"); //id는 #
+p.addEventListener("click", 함수);
+
+
+3. 문서 객체(DOM)와 이벤트 리스너와 함수의 관계를 그림으로 그려보세요. 문서객체 : <h5 id="hidden" title="누르면 메뉴가 숨겨집니다">메뉴 숨기기</h5>
+이벤트 리스너 : addEventListener("click", hiddenMenu);
+함수 : function hiddenMenu() {}
+
+
+
+4. 클릭하면 메뉴를 숨기기 위해 <h5>메뉴 숨기기<h5>에
+함수 : function hiddenMenu() {}을 만들어서 추가해주세요.
+const menu = document.querySelector ("#menu");
+menu.setAttribute("calss","hidden");
+
+
+5. 클릭하면 메뉴를 보이기 위해 <h5>메뉴 보이기<h5>에 
+함수 : function showMenu() {}을 만들어서 추가해주세요. * removeAttribute(“속성명”)을 통해 속성을 지울 수 있다
+
+
+
+
